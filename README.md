@@ -37,3 +37,7 @@ python run.py
 
 status = 1, 返回已知解答
 status = 0, 返回猜测解答
+
+#### 测试接口
+
+http://118.25.236.82:1028/trash?name=%E9%99%B6%E7%93%B7

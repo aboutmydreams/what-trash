@@ -23,7 +23,7 @@ def what_trash():
     }
     ans = make_response(json.dumps(ans))
     ans.headers['Access-Control-Allow-Origin'] = '*'
-    # ans.headers['Content-Type'] = 'application/json'
+    ans.headers['Content-Type'] = 'application/json'
     return ans
 
 
