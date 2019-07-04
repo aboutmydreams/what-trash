@@ -1,5 +1,5 @@
 const defaultValue = {
-  inputValue: 'hello',
+  inputValue: '陶瓷是什么垃圾？',
   list: [],
   resList: []
 }

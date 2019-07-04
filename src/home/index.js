@@ -8,8 +8,15 @@ const Home = (props) => {
       <div style={styles.container}>
         <div style={styles.header}>
           我是智能垃圾分类机器人助手
+          
         </div>
         <div style={styles.content}>
+          <div style={styles.content.response}>
+            <img style={styles.avator} alt='浩浩机器人的头像' src="http://img.flura.cn/robot.jpg"></img>
+            <div style={styles.content.msg}>
+              <span style={styles.content.response.info}>我是小小垃圾分类助手，告诉我你想进行分类的任何垃圾哟~</span>
+            </div>           
+          </div>
           {
             props.list.map((item, index) => {
               return ( 
@@ -44,8 +51,6 @@ const RandomNum = _.random(1,3)
 
 const styles = {
   container : {
-    // position: 'relative',
-    // maxWidth: '420px',
     margin: '0 auto',
     height: '100%',
     display: 'flex',
@@ -79,7 +84,7 @@ const styles = {
     width: '100%',
     background: '#F1F2F7',
     msg: {
-      width: '75%',
+      width: '70%',
       position: 'relative',
     },
 
@@ -87,7 +92,7 @@ const styles = {
       display: 'flex',
       justifyContent: 'flex-end',
       textAlign: 'right',
-      margin: '10px 0',
+      
       info: {
         display: 'inline-block',
         padding: '10px 15px',
@@ -101,6 +106,7 @@ const styles = {
       display: 'flex',
       justifyContent: 'flex-start',
       textAlign: 'left',
+      margin: '10px 0',
       info: {
         display: 'inline-block',
         padding: '10px 10px',
@@ -116,7 +122,7 @@ const styles = {
     position: 'fixed',
     bottom: '0', 
     // maxWidth: '420px',
-    paddingTop: '5px',
+    paddingTop: '8px',
     width: '100%',
     display: 'flex',
     background: '#ececf4',
@@ -128,7 +134,7 @@ const styles = {
       paddingLeft: '15px',
       height: '40px',
       lineHeight: '40px',
-      fontSize: '20px',
+      fontSize: '16px',
       border: 'none',
       borderRadius: '20px',
       outline: 'none',
@@ -138,9 +144,10 @@ const styles = {
       height: '40px',
       marginLeft: '10px',
       marginRight: '10px',
-      borderRadius: '50%',
+      borderRadius: '20px',
       border: 'none',
       background: '#1FBAFC',
+      color: '#ffffff'
     }
   },
   

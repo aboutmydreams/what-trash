@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "ali-oss": "^6.1.1",
     "axios": "^0.19.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -12,6 +13,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "deploy": "react-scripts build && node deploy.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
