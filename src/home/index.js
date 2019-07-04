@@ -7,8 +7,7 @@ const Home = (props) => {
   return (
       <div style={styles.container}>
         <div style={styles.header}>
-          我是智能垃圾分类机器人助手
-          
+          what-trash
         </div>
         <div style={styles.content}>
           <div style={styles.content.response}>
@@ -39,7 +38,7 @@ const Home = (props) => {
           }
         </div>
         <div style={styles.footer}>
-          <input type="text"  style={styles.footer.input} value={props.inputValue} onChange={ props.handleInputValue }></input>
+          <input type="text"  style={styles.footer.input} value={props.inputValue}  onChange={ props.handleInputValue }></input>
           <button style={styles.footer.button} onClick={() => {props.handBtnClick(props)} }>发送</button>
         </div>
       </div>
