@@ -14,9 +14,9 @@ python run.py
 
 ### url: /trash
 
-#### method: GET
+#### `method: GET`
 
-#### param
+#### `param`
 
 ```json
 {
@@ -24,7 +24,7 @@ python run.py
 }
 ```
 
-### response:
+### `response`:
 
 ```json
 {
