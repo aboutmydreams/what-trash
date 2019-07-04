@@ -1,7 +1,7 @@
 # what-trash
 
 为了更好的垃圾分类
-[trash](https://cdn.nlark.com/yuque/0/2019/png/164272/1562229745215-b636afd3-b1ed-4826-9a11-fa972e22c40f.png)
+![trash](https://cdn.nlark.com/yuque/0/2019/png/164272/1562229745215-b636afd3-b1ed-4826-9a11-fa972e22c40f.png)
 
 ## 后端运行
 
