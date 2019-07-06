@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 unknow_answer = [
     '我现在还不太明白这种垃圾呢！',
-    '我有点看不懂你的意思呀，可以跟我聊些简单的话题嘛',
+    '我有点看不懂你的意思呀，或许你可以问问小家园？',
     '其实我不太明白你的意思……',
     '抱歉哦，我现在的能力还不能够明白你在说什么垃圾，但我会加油的～'
 ]
@@ -58,29 +58,32 @@ def trash(trash_name):
         inter_answer = [
             '为啥又有人问我这个问题...',
             '{}这么笨，被归属于垃圾，垃圾家族应该不会满意吧！！'.format(trash_name),
-
             '{}看起来不像来自地球，不会是太空垃圾吧？'.format(trash_name),
             '{}这么搞笑，或许是娱乐垃圾吧'.format(trash_name)
         ]
         return random.choice(inter_answer)
 
     try:
-        url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_2/TrashQuery.aspx?kw={}'.format(trash_name)
+        url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_2/TrashQuery.aspx?kw={}'.format(trash_name2)
         res = requests.get(url).text
         soup = BeautifulSoup(res, 'lxml')
         trash_is = soup.select('#form1 > div.main > div.con > div.info > p > span')[0].get_text()
-        ans = '{}属于{}哦~'.format(trash_name, str(trash_is))
+        ans = '{}属于{}{}'.format(trash_name, str(trash_is),random.choice(['哦~','呢！','的啦！','哟~']))
+        ans_data_f = open("ansdata/answer_data.txt","a")
+        ans_data = {trash_name2: trash_is}
+        ans_data_f.write(str(ans_data))
         return ans
     except IndexError or requests.exceptions.ConnectionError:
         random_sentence = (
             '我现在还不太明白{}是什么垃圾呢，但没关系，你可以问点别的呢！比如我是什么垃圾'.format(trash_name),
-            '我有点看不懂你的意思呀，可以跟我聊些简单的话题嘛，或者你想听点什么',
+            '我有点看不懂你的意思呀，或许你可以问问小家园？',
             '其实我不太明白{}的意思……'.format(trash_name),
             '这个我不知道呢...或许是厨余垃圾？',
             '为啥又有人问我这个问题...',
             '这个我不知道呢...{}可能是厨余垃圾？'.format(trash_name),
             '不知道哦...看样子含水量挺多的？可能是湿垃圾吧',
             '看起来挺酷的...{}难道是电子垃圾？'.format(trash_name),
+            '不知道...但愿Ta是无毒无害垃圾吧',
             '这个我不确定呢，难不成是太空垃圾？'
         )
         other_name = cut_find_more_word(trash_name2)
@@ -89,6 +92,9 @@ def trash(trash_name):
         else:
             print(other_name)
             other_name = '或许你想问的是' + '、'.join(list(set(other_name))) + '?'
+            ans_data_f = open("ansdata/name_list.txt", "a")
+            ans_data = {trash_name2: other_name}
+            ans_data_f.write(str(ans_data))
         return random.choice(random_sentence) + other_name
 
 
@@ -131,6 +137,6 @@ def cut_find_more_word(word):
                 more_word.extend(others)
     return more_word
 
-# a = trash("邓文浩是什么垃圾")
-# print(a)
+a = trash("苹果")
+print(a)
 # other_trash("人")
