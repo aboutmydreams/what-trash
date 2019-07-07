@@ -361,17 +361,31 @@ windscreen	挡风玻璃"""
 
 # sort_list("纸、废塑料、废金属、废包装物、废旧纺织物、废弃电器电子产品、废玻璃、废纸塑铝复合包装")
 
+
 def name_to_json():
     name_list_f = open("ansdata/name_list.txt","r")
     name_list = list(set(eval("["+name_list_f.read().replace("}","},")+"]")))
     name_list_f.close()
-    with open('ansdata/name_list.json', "w", encoding='utf-8') as write_name_list_f:
-        json.dump(name_list, write_name_list_f,ensure_ascii=False)
+    with open('ansdata/name_list.json', "w", encoding='utf-8') as write_name_list_json:
+        json.dump(name_list, write_name_list_json,ensure_ascii=False)
+
 
 def json_data_to_answer():
     with open('ansdata/name_list.json', "r", encoding='utf-8') as name_list_f:
         name_list = json.load(name_list_f)
         sort_list(name_list)
 
-json_data_to_answer()
+
+def answer_to_json():
+    ans_list_f = open("ansdata/answer_data.txt", "r")
+    ans_list = eval(json.dumps('['+str(ans_list_f.read()).replace(",", "").replace("}", "},")+']').encode('utf-8'))
+    print(ans_list,type(ans_list))
+    # ans_list = list(set(ans_list))
+    print(len(ans_list))
+    ans_list_f.close()
+    with open('ansdata/answer_data.json', "w", encoding='utf-8') as ans_list_json:
+        json.dump(ans_list, ans_list_json, ensure_ascii=False)
+
+answer_to_json()
 # ans_data = open("ansdata/answer_data.txt","r")
+
