@@ -45,7 +45,6 @@ def trash(trash_name):
             '我不想告诉你真相，怕你伤心'
         ]
         return random.choice(inter_answer)
-
     if trash_name2 in ["群主", "楼上", "欣芝"]:
         inter_answer = [
             '{}这么聪明，怎么会是垃圾呢？'.format(trash_name),
@@ -53,7 +52,6 @@ def trash(trash_name):
             '{}这么机智，要说是也是高智商垃圾吧'.format(trash_name)
         ]
         return random.choice(inter_answer)
-
     if trash_name2 in ["老汪头", "郑宇杰"]:
         inter_answer = [
             '为啥又有人问我这个问题...',
@@ -67,7 +65,9 @@ def trash(trash_name):
         url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_2/TrashQuery.aspx?kw={}'.format(trash_name2)
         res = requests.get(url).text
         soup = BeautifulSoup(res, 'lxml')
-        trash_is = soup.select('#form1 > div.main > div.con > div.info > p > span')[0].get_text()
+        #form1 > table > tbody > tr > td > div > div.con > div.info > p > span
+        #form1 > div.main > div.con > div.info > p > span
+        trash_is = soup.select('div.con > div.info > p > span')[0].get_text()
         ans = '{}属于{}{}'.format(trash_name, str(trash_is),random.choice(['哦~','呢！','的啦！','哟~']))
         ans_data_f = open("ansdata/answer_data.txt","a")
         ans_data = {trash_name2: trash_is}
@@ -91,10 +91,11 @@ def trash(trash_name):
             other_name = ''
         else:
             print(other_name)
-            other_name = '或许你想问的是' + '、'.join(list(set(other_name))) + '?'
+            name_list = list(set(other_name))
             ans_data_f = open("ansdata/name_list.txt", "a")
-            ans_data = {trash_name2: other_name}
-            ans_data_f.write(str(ans_data))
+            ans_data_f.write(str(name_list)[1:-1] + ',')
+            other_name = '或许你想问的是' + '、'.join(name_list) + '?'
+
         return random.choice(random_sentence) + other_name
 
 
@@ -121,9 +122,14 @@ def other_trash(name):
 def cut_find_more_word(word):
     url_list = ['http://114.67.84.223/get.php?source=', 'http://120.26.6.172/get.php?source=',
                 'http://116.196.101.207/get.php?source=']
-    url = random.choice(url_list) + word + "&param1=0&param2=1&json=1"
+
     # print(url)
-    res = eval(requests.get(url).text)
+    try:
+        url = random.choice(url_list) + word + "&param1=0&param2=1&json=1"
+        res = eval(requests.get(url).text)
+    except requests.exceptions.ConnectionError:
+        url = random.choice(url_list) + word + "&param1=0&param2=1&json=1"
+        res = eval(requests.get(url).text)
     word_list = []
     for i in res:
         if float(i["p"]) > 0.9:
@@ -137,6 +143,21 @@ def cut_find_more_word(word):
                 more_word.extend(others)
     return more_word
 
-a = trash("苹果")
-print(a)
+
+def sort_list(trash_list_str: str or list) -> str:
+    if type(trash_list_str) is list:
+        trash_list = list(set(trash_list_str))
+    else:
+        trash_list = trash_list_str.replace('，','、').replace('等','').split('、')
+    # print(trash_list)
+    for i in trash_list:
+        ans = trash(i)
+        print(ans)
+
+# sort_list("榴莲壳、椰子壳、柚子皮")
+
+# a = trash("行李箱")
+# print(a)
 # other_trash("人")
+
+
