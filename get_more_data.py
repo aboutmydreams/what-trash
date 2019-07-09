@@ -386,6 +386,26 @@ def answer_to_json():
     with open('ansdata/answer_data.json', "w", encoding='utf-8') as ans_list_json:
         json.dump(ans_list, ans_list_json, ensure_ascii=False)
 
-answer_to_json()
+# answer_to_json()
 # ans_data = open("ansdata/answer_data.txt","r")
+
+def data_to_dict():
+    last_data = {}
+    with open('ansdata/answer_data.json', "r", encoding='utf-8') as ans_list_json:
+        datas = json.load(ans_list_json)
+        for i in datas:
+            key = eval(str(i.keys())[10:-1])[0]
+            value = eval(str(i.values())[12:-1])[0]
+            print(key,value)
+            if value in last_data:
+                if key not in last_data[value]:
+                    last_data[value].append(key)
+            else:
+                last_data[value] = [key]
+
+    with open('ansdata/answer_data0.json', "w", encoding='utf-8') as ans_last_json:
+        json.dump(last_data, ans_last_json, ensure_ascii=False)
+
+
+# data_to_dict()
 
