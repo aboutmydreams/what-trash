@@ -1,11 +1,34 @@
 # what-trash
 
-为了更好的垃圾分类
+为了更好的垃圾分类，编写了一个智能回答小助手，数据来源于上海市垃圾查询爬取 与 福州第一技师学院的生活垃圾分类知识汇总
+
 ![trash](https://cdn.nlark.com/yuque/0/2019/png/164272/1562229745215-b636afd3-b1ed-4826-9a11-fa972e22c40f.png)
 
-## 后端运行
+## Data格式与添加方法
+可在 [ansdata/answer_data.json](https://github.com/aboutmydreams/what-trash/tree/master/ansdata/answer_data.json) 中查看，部分数据截取，已有500+数据，有待整理与添加。开源项目 望提交 pull request 支持。
+```json
+  {
+    "碎陶瓷": "干垃圾"
+  },
+  {
+    "毛毯": "可回收物"
+  },
+  {
+    "口香糖": "干垃圾"
+  },
+```
+项目结构中，get_more_data.py 是我拓展更多数据时
+使用的py文件，用于将更多的数据写入 json 当中，在
+项目部署中无需求。其中的sort_list函数可传入未知
+垃圾列表，自动抓取数据写入txt。run.py是 flask 的
+部署py。trash.py 是主函数所在文件，包括爬取函数，
+写入txt，返回有趣的答案，您可以在其中添加"你是什么
+垃圾"等 的有趣回答，望贡献文案～。
 
-默认 1028 端口，可在 run.py 中修改
+
+## 后端部署
+
+后端使用简单的 flask app run部署，默认 1028 端口，可在 run.py 中修改
 
 ```bash
 git clone https://github.com/aboutmydreams/what-trash.git
@@ -36,9 +59,11 @@ python run.py
 
 #### api 说明
 
+```bash
 status = 1, 返回已知解答
 
 status = 0, 返回猜测解答
+```
 
 #### 测试接口
 
@@ -46,7 +71,7 @@ http://118.25.236.82:1028/trash?name=%E9%99%B6%E7%93%B7
 
 
 
-## 前端运行
+## 前端部署
 
 前端部署地址：[http://what-trash.flura.cn](http://what-trash.flura.cn/)
 
