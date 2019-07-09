@@ -409,3 +409,15 @@ def data_to_dict():
 
 # data_to_dict()
 
+def good_dict():
+    last_data = {}
+    with open('ansdata/answer_data0.json', "r", encoding='utf-8') as ans_list_json:
+        datas = json.load(ans_list_json)
+    for trash_class in datas.keys():
+        for i in datas[trash_class]:
+            last_data[i] = trash_class
+    print(last_data)
+    with open('ansdata/good_data.json', "w", encoding='utf-8') as ans_last_json:
+        json.dump(last_data, ans_last_json, ensure_ascii=False)
+
+good_dict()
