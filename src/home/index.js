@@ -46,7 +46,7 @@ const Home = (props) => {
   
 }
 
-const RandomNum = _.random(1,3)
+const RandomNum = _.random(1,3) //随机数，为了从cdn里随机挑选一个头像
 
 const styles = {
   container : {
