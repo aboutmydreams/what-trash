@@ -5,16 +5,12 @@
 ![trash](https://cdn.nlark.com/yuque/0/2019/png/164272/1562229745215-b636afd3-b1ed-4826-9a11-fa972e22c40f.png)
 
 ## Data格式与添加方法
-可在 [ansdata/answer_data.json](https://github.com/aboutmydreams/what-trash/tree/master/ansdata/answer_data.json) 中查看，部分数据截取，已有500+数据，有待整理与添加。开源项目 望提交 pull request 支持。
+可在 [ansdata/good_data.json](https://github.com/aboutmydreams/what-trash/tree/master/ansdata/good_data.json) 中查看，部分数据截取，已有500+数据，有待整理与添加。开源项目 望提交 pull request 支持。
 ```json
   {
-    "碎陶瓷": "干垃圾"
-  },
-  {
-    "毛毯": "可回收物"
-  },
-  {
-    "口香糖": "干垃圾"
+    "碎陶瓷": "干垃圾",
+    "毛毯": "可回收物",
+    "口香糖": "干垃圾",
   },
 ```
 项目结构中，get_more_data.py 是我拓展更多数据时
