@@ -98,7 +98,7 @@ def trash(trash_name):
         if other_name == []:
             other_name = ''
         else:
-            print(other_name)
+            # print(other_name)
             name_list = list(set(other_name))
             ans_data_f = open("ansdata/name_list.txt", "a")
             ans_data_f.write(str(name_list)[1:-1] + ',')
@@ -164,8 +164,8 @@ def sort_list(trash_list_str: str or list) -> str:
 
 # sort_list("榴莲壳、椰子壳、柚子皮")
 
-a = trash("行李箱")
-print(a)
+# a = trash("行李箱")
+print("run!!!")
 # other_trash("人")
 
 
