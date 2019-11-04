@@ -37,10 +37,10 @@ const Home = (props) => {
             }) 
           }
         </div>
-        <div style={styles.footer}>
+        <form style={styles.footer} onSubmit={e => {props.handleSubmit(e, props)} }>
           <input type="text"  style={styles.footer.input} value={props.inputValue}  onChange={ props.handleInputValue }></input>
-          <button style={styles.footer.button} onClick={() => {props.handBtnClick(props)} }>发送</button>
-        </div>
+          <button style={styles.footer.button}>发送</button>
+        </form>
       </div>
   )
   
@@ -166,7 +166,8 @@ const mapDispatchToProps = (dispatch) => {
       const action = changeInputValue(e.target.value)
       dispatch(action)
     },
-    handBtnClick(props) {
+    handleSubmit(e, props) {
+      e.preventDefault()
       if (props.inputValue !== '') {
         const action = addInputItem()
         dispatch(action)
