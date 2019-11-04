@@ -1,4 +1,4 @@
-import requests, re
+import requests, re, json
 import random
 from bs4 import BeautifulSoup
 
@@ -9,6 +9,8 @@ unknow_answer = [
     '抱歉哦，我现在的能力还不能够明白你在说什么垃圾，但我会加油的～'
 ]
 
+with open('ansdata/good_data.json', "r", encoding='utf-8') as ans_list_json:
+    all_datas = json.load(ans_list_json)
 
 def trash(trash_name):
 
@@ -61,6 +63,12 @@ def trash(trash_name):
         ]
         return random.choice(inter_answer)
 
+    if trash_name2 in all_datas:
+        # print('='*100)
+        trash_is = all_datas[trash_name2]
+        ans = '{}属于{}{}'.format(trash_name, str(trash_is), random.choice(['哦~', '呢！', '的啦！', '哟~']))
+        return ans
+
     try:
         url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_2/TrashQuery.aspx?kw={}'.format(trash_name2)
         res = requests.get(url).text
@@ -90,7 +98,7 @@ def trash(trash_name):
         if other_name == []:
             other_name = ''
         else:
-            print(other_name)
+            # print(other_name)
             name_list = list(set(other_name))
             ans_data_f = open("ansdata/name_list.txt", "a")
             ans_data_f.write(str(name_list)[1:-1] + ',')
@@ -157,7 +165,7 @@ def sort_list(trash_list_str: str or list) -> str:
 # sort_list("榴莲壳、椰子壳、柚子皮")
 
 # a = trash("行李箱")
-# print(a)
+print("run!!!")
 # other_trash("人")
 
 
