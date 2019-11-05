@@ -9,7 +9,7 @@ const Home = (props) => {
         <div style={styles.header}>
           what-trash
         </div>
-        <div style={styles.content}>
+        <div id="cont" style={styles.content}>
           <div style={styles.content.response}>
             <img style={styles.avator} alt='浩浩机器人的头像' src="http://img.flura.cn/robot.jpg"></img>
             <div style={styles.content.msg}>
@@ -78,7 +78,7 @@ const styles = {
     position: 'fixed',
     top: '50px',
     bottom: '55px',
-    overflowY: 'auto',
+    overflowY: 'scroll',
     flex: 1,
     width: '100%',
     background: '#F1F2F7',
@@ -91,7 +91,6 @@ const styles = {
       display: 'flex',
       justifyContent: 'flex-end',
       textAlign: 'right',
-      
       info: {
         display: 'inline-block',
         padding: '10px 15px',
@@ -175,16 +174,20 @@ const mapDispatchToProps = (dispatch) => {
         // console.log("param", param)
         const resAction = toGetResponse(param)
         dispatch(resAction)
+        setTimeout(() => {
+          this.scrollButtom()
+        }, 0);
       } else {
         console.log("input不能为空")
       }
-    
     },
+    scrollButtom() {
+      let cont = document.getElementById("cont")
+      cont.scrollTop = cont.scrollHeight
+    }
 
-    
   }
 }
-
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
