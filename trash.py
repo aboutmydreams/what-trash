@@ -1,6 +1,5 @@
 import requests, re, json
 import random
-from bs4 import BeautifulSoup
 
 unknow_answer = [
     '我现在还不太明白这种垃圾呢！',
@@ -70,17 +69,23 @@ def trash(trash_name):
         return ans
 
     try:
-        url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_2/TrashQuery.aspx?kw={}'.format(trash_name2)
-        res = requests.get(url).text
-        soup = BeautifulSoup(res, 'lxml')
-        #form1 > table > tbody > tr > td > div > div.con > div.info > p > span
-        #form1 > div.main > div.con > div.info > p > span
-        trash_is = soup.select('div.con > div.info > p > span')[0].get_text()
-        ans = '{}属于{}{}'.format(trash_name, str(trash_is),random.choice(['哦~','呢！','的啦！','哟~']))
-        ans_data_f = open("ansdata/answer_data.txt","a")
-        ans_data = {trash_name2: trash_is}
-        ans_data_f.write(str(ans_data))
-        return ans
+        url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_3/Handler/Handler.ashx?a=GET_KEYWORDS&kw={}'.format(trash_name2)
+        res = requests.get(url, headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3962.2 Safari/537.36'
+        })
+        data = json.loads(res.text)
+        if data['kw_list']:
+            if (len(data['kw_list']) == 1):
+                trash_is = data['kw_arr'][0]['TypeKey']
+                ans = '{}属于{}{}'.format(trash_name, str(trash_is), random.choice(['哦~', '呢！', '的啦！', '哟~']))
+            else:
+                trash_is = '、'.join(data['kw_list'])
+                ans = '你问的是{}中的哪一个呢？请输入全名哦~'.format(trash_is)
+            return ans
+        else: raise IndexError
+        # ans_data_f = open("ansdata/answer_data.txt","a")
+        # ans_data = {trash_name2: trash_is}
+        # ans_data_f.write(str(ans_data))
     except IndexError or requests.exceptions.ConnectionError:
         random_sentence = (
             '我现在还不太明白{}是什么垃圾呢，但没关系，你可以问点别的呢！比如我是什么垃圾'.format(trash_name),
@@ -167,5 +172,3 @@ def sort_list(trash_list_str: str or list) -> str:
 # a = trash("行李箱")
 print("run!!!")
 # other_trash("人")
-
-
