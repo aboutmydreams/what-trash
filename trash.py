@@ -75,11 +75,12 @@ def trash(trash_name):
         })
         data = json.loads(res.text)
         if data['kw_list']:
-            if (len(data['kw_list']) == 1):
-                trash_is = data['kw_arr'][0]['TypeKey']
+            list = data['kw_list']
+            if (trash_name2 in list):
+                trash_is = data['kw_arr'][list.index(trash_name2)]['TypeKey']
                 ans = '{}属于{}{}'.format(trash_name, str(trash_is), random.choice(['哦~', '呢！', '的啦！', '哟~']))
             else:
-                trash_is = '、'.join(data['kw_list'])
+                trash_is = '、'.join(list)
                 ans = '你问的是{}中的哪一个呢？请输入全名哦~'.format(trash_is)
             return ans
         else: raise IndexError
