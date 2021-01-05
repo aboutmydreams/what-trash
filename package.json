@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "ali-oss": "^6.1.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
