@@ -14,9 +14,7 @@ app = Flask(__name__)
 def what_trash():
     trashname = request.args.get('name')
     res = trash.trash(trashname)
-    status = 0
-    if '属于' in res:
-        status = 1
+    status = 1 if '属于' in res else 0
     ans = {
         'status': status,
         'content': res

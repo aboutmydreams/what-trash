@@ -48,58 +48,62 @@ def trash(trash_name):
         return random.choice(inter_answer)
     if trash_name2 in ["群主", "楼上", "欣芝"]:
         inter_answer = [
-            '{}这么聪明，怎么会是垃圾呢？'.format(trash_name),
-            '{}看起来不像来自地球，不会是太空垃圾吧？'.format(trash_name),
-            '{}这么机智，要说是也是高智商垃圾吧'.format(trash_name)
+            f'{trash_name}这么聪明，怎么会是垃圾呢？',
+            f'{trash_name}看起来不像来自地球，不会是太空垃圾吧？',
+            f'{trash_name}这么机智，要说是也是高智商垃圾吧',
         ]
+
         return random.choice(inter_answer)
     if trash_name2 in ["老汪头", "郑宇杰"]:
         inter_answer = [
             '为啥又有人问我这个问题...',
-            '{}这么笨，被归属于垃圾，垃圾家族应该不会满意吧！！'.format(trash_name),
-            '{}看起来不像来自地球，不会是太空垃圾吧？'.format(trash_name),
-            '{}这么搞笑，或许是娱乐垃圾吧'.format(trash_name)
+            f'{trash_name}这么笨，被归属于垃圾，垃圾家族应该不会满意吧！！',
+            f'{trash_name}看起来不像来自地球，不会是太空垃圾吧？',
+            f'{trash_name}这么搞笑，或许是娱乐垃圾吧',
         ]
+
         return random.choice(inter_answer)
 
     if trash_name2 in all_datas:
         # print('='*100)
         trash_is = all_datas[trash_name2]
-        ans = '{}属于{}{}'.format(trash_name, str(trash_is), random.choice(['哦~', '呢！', '的啦！', '哟~']))
-        return ans
+        return f"{trash_name}属于{str(trash_is)}{random.choice(['哦~', '呢！', '的啦！', '哟~'])}"
+
 
     try:
-        url = 'http://trash.lhsr.cn/sites/feiguan/trashTypes_3/Handler/Handler.ashx?a=GET_KEYWORDS&kw={}'.format(trash_name2)
+        url = f'http://trash.lhsr.cn/sites/feiguan/trashTypes_3/Handler/Handler.ashx?a=GET_KEYWORDS&kw={trash_name2}'
+
         res = requests.get(url, headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3962.2 Safari/537.36'
         })
         data = json.loads(res.text)
-        if data['kw_list']:
-            list = data['kw_list']
-            if (trash_name2 in list):
-                trash_is = data['kw_arr'][list.index(trash_name2)]['TypeKey']
-                ans = '{}属于{}{}'.format(trash_name, str(trash_is), random.choice(['哦~', '呢！', '的啦！', '哟~']))
-            else:
-                trash_is = '、'.join(list)
-                ans = '你问的是{}中的哪一个呢？请输入全名哦~'.format(trash_is)
-            return ans
-        else: raise IndexError
-        # ans_data_f = open("ansdata/answer_data.txt","a")
-        # ans_data = {trash_name2: trash_is}
-        # ans_data_f.write(str(ans_data))
+        if not data['kw_list']:
+            raise IndexError
+        list = data['kw_list']
+        if (trash_name2 in list):
+            trash_is = data['kw_arr'][list.index(trash_name2)]['TypeKey']
+            return f"{trash_name}属于{str(trash_is)}{random.choice(['哦~', '呢！', '的啦！', '哟~'])}"
+
+        else:
+            trash_is = '、'.join(list)
+            return f'你问的是{trash_is}中的哪一个呢？请输入全名哦~'
+            # ans_data_f = open("ansdata/answer_data.txt","a")
+            # ans_data = {trash_name2: trash_is}
+            # ans_data_f.write(str(ans_data))
     except IndexError or requests.exceptions.ConnectionError:
         random_sentence = (
-            '我现在还不太明白{}是什么垃圾呢，但没关系，你可以问点别的呢！比如我是什么垃圾'.format(trash_name),
+            f'我现在还不太明白{trash_name}是什么垃圾呢，但没关系，你可以问点别的呢！比如我是什么垃圾',
             '我有点看不懂你的意思呀，或许你可以问问小家园？',
-            '其实我不太明白{}的意思……'.format(trash_name),
+            f'其实我不太明白{trash_name}的意思……',
             '这个我不知道呢...或许是厨余垃圾？',
             '为啥又有人问我这个问题...',
-            '这个我不知道呢...{}可能是厨余垃圾？'.format(trash_name),
+            f'这个我不知道呢...{trash_name}可能是厨余垃圾？',
             '不知道哦...看样子含水量挺多的？可能是湿垃圾吧',
-            '看起来挺酷的...{}难道是电子垃圾？'.format(trash_name),
+            f'看起来挺酷的...{trash_name}难道是电子垃圾？',
             '不知道...但愿Ta是无毒无害垃圾吧',
-            '这个我不确定呢，难不成是太空垃圾？'
+            '这个我不确定呢，难不成是太空垃圾？',
         )
+
         other_name = cut_find_more_word(trash_name2)
         if other_name == []:
             other_name = ''
@@ -107,7 +111,7 @@ def trash(trash_name):
             # print(other_name)
             name_list = list(set(other_name))
             ans_data_f = open("ansdata/name_list.txt", "a")
-            ans_data_f.write(str(name_list)[1:-1] + ',')
+            ans_data_f.write(f'{str(name_list)[1:-1]},')
             other_name = '或许你想问的是' + '、'.join(name_list) + '?'
 
         return random.choice(random_sentence) + other_name
@@ -125,10 +129,9 @@ def other_trash(name):
         res = requests.post(url, data=datas, timeout=3).text
         if res == "":
             return []
-        else:
-            res = eval(requests.post(url, data=datas, timeout=3).text)
-            # ["502胶水","504胶水","504胶水废包装"]
-            return res
+        res = eval(requests.post(url, data=datas, timeout=3).text)
+        # ["502胶水","504胶水","504胶水废包装"]
+        return res
     except:
         return []
 
@@ -144,11 +147,7 @@ def cut_find_more_word(word):
     except requests.exceptions.ConnectionError:
         url = random.choice(url_list) + word + "&param1=0&param2=1&json=1"
         res = eval(requests.get(url).text)
-    word_list = []
-    for i in res:
-        if float(i["p"]) > 0.9:
-            word_list.append(i["t"])
-
+    word_list = [i["t"] for i in res if float(i["p"]) > 0.9]
     more_word = []
     if word_list is not []:
         for w in word_list:
